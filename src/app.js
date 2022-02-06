@@ -7,7 +7,13 @@ const {
   firstCharacters,
   firstCharacter,
 } = require('./lib/strings');
-const { getNthElement } = require('./lib/arrays');
+const {
+  getNthElement,
+  csvStringToArray,
+  arrayToCSVString,
+  addToArray,
+  elementsStartingWithAVowel,
+} = require('./lib/arrays');
 
 const app = express();
 
@@ -93,6 +99,18 @@ app.post('/numbers/remainder', (req, res) => {
 
 app.post('/arrays/element-at-index/2', (req, res) => {
   res.status(200).json({ result: getNthElement(req.body.index, req.body.array) });
+});
+
+app.post('/arrays/to-string', (req, res) => {
+  res.status(200).json({ result: arrayToCSVString(req.body.array) });
+});
+
+app.post('/arrays/append', (req, res) => {
+  res.status(200).json({ result: addToArray(req.body.element, req.body.array) });
+});
+
+app.post('/arrays/starts-with-vowel', (req, res) => {
+  res.status(200).json({ result: elementsStartingWithAVowel(req.body.strings) });
 });
 
 module.exports = app;
