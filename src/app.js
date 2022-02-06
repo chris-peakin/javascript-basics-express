@@ -9,11 +9,12 @@ const {
 } = require('./lib/strings');
 const {
   getNthElement,
-  csvStringToArray,
   arrayToCSVString,
   addToArray,
   elementsStartingWithAVowel,
+  removeNthElement,
 } = require('./lib/arrays');
+const { negate, truthiness, isOdd, startsWith } = require('./lib/booleans');
 
 const app = express();
 
@@ -111,6 +112,30 @@ app.post('/arrays/append', (req, res) => {
 
 app.post('/arrays/starts-with-vowel', (req, res) => {
   res.status(200).json({ result: elementsStartingWithAVowel(req.body.strings) });
+});
+
+app.post('/arrays/remove-element', (req, res) => {
+  res.status(200).json({ result: removeNthElement(req.body.index, req.body.array) });
+});
+
+app.post('/booleans/negate', (req, res) => {
+  res.status(200).json({ result: negate(req.body.a) });
+});
+
+app.post('/booleans/truthiness', (req, res) => {
+  res.status(200).json({ result: truthiness(req.body.a) });
+});
+
+app.post('/booleans/is-odd', (req, res) => {
+  if (isNaN(req.body.a)) {
+    res.status(400).json({ error: 'Parameter must be a number.' });
+  } else {
+    res.status(200).json({ result: isOdd(req.body.a) });
+  }
+});
+
+app.post('/booleans/starts-with', (req, res) => {
+  res.status(200).json({ result: startsWith(req.body.char, req.body.string) });
 });
 
 module.exports = app;
