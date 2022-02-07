@@ -98,8 +98,8 @@ app.post('/numbers/remainder', (req, res) => {
   }
 });
 
-app.post('/arrays/element-at-index/2', (req, res) => {
-  res.status(200).json({ result: getNthElement(req.body.index, req.body.array) });
+app.post('/arrays/element-at-index/:index', (req, res) => {
+  res.status(200).json({ result: getNthElement(req.params.index, req.body.array) });
 });
 
 app.post('/arrays/to-string', (req, res) => {
@@ -107,15 +107,15 @@ app.post('/arrays/to-string', (req, res) => {
 });
 
 app.post('/arrays/append', (req, res) => {
-  res.status(200).json({ result: addToArray(req.body.element, req.body.array) });
+  res.status(200).json({ result: addToArray(req.params.element, req.body.array) });
 });
 
 app.post('/arrays/starts-with-vowel', (req, res) => {
   res.status(200).json({ result: elementsStartingWithAVowel(req.body.strings) });
 });
 
-app.post('/arrays/remove-element', (req, res) => {
-  res.status(200).json({ result: removeNthElement(req.body.index, req.body.array) });
+app.post('/arrays/remove-element/:index', (req, res) => {
+  res.status(200).json({ result: removeNthElement(req.params.index, req.body.array) });
 });
 
 app.post('/booleans/negate', (req, res) => {
