@@ -107,34 +107,34 @@ app.post('/arrays/to-string', (req, res) => {
 });
 
 app.post('/arrays/append', (req, res) => {
-  res.status(200).json({ result: addToArray(req.params.element, req.body.array) });
+  res.status(200).json({ result: addToArray(req.body.value, req.body.array) });
 });
 
 app.post('/arrays/starts-with-vowel', (req, res) => {
-  res.status(200).json({ result: elementsStartingWithAVowel(req.body.strings) });
+  res.status(200).json({ result: elementsStartingWithAVowel(req.body.array) });
 });
 
 app.post('/arrays/remove-element/:index', (req, res) => {
-  res.status(200).json({ result: removeNthElement(req.params.index, req.body.array) });
+  res.status(200).json({ result: removeNthElement(req.query.index, req.body.array) });
 });
 
 app.post('/booleans/negate', (req, res) => {
-  res.status(200).json({ result: negate(req.body.a) });
+  res.status(200).json({ result: negate(req.body.value) });
 });
 
 app.post('/booleans/truthiness', (req, res) => {
-  res.status(200).json({ result: truthiness(req.body.a) });
+  res.status(200).json({ result: truthiness(req.body.value) });
 });
 
-app.post('/booleans/is-odd', (req, res) => {
-  if (isNaN(req.body.a)) {
+app.get('/booleans/is-odd', (req, res) => {
+  if (isNaN(req.body.value)) {
     res.status(400).json({ error: 'Parameter must be a number.' });
   } else {
-    res.status(200).json({ result: isOdd(req.body.a) });
+    res.status(200).json({ result: isOdd(req.body.value) });
   }
 });
 
-app.post('/booleans/starts-with', (req, res) => {
+app.get('/booleans/starts-with', (req, res) => {
   res.status(200).json({ result: startsWith(req.body.char, req.body.string) });
 });
 
