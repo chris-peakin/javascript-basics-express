@@ -126,11 +126,11 @@ app.post('/booleans/truthiness', (req, res) => {
   res.status(200).json({ result: truthiness(req.body.value) });
 });
 
-app.get('/booleans/is-odd', (req, res) => {
-  if (isNaN(req.body.value)) {
+app.get('/booleans/is-odd/:number', (req, res) => {
+  if (isNaN(req.params.number)) {
     res.status(400).json({ error: 'Parameter must be a number.' });
   } else {
-    res.status(200).json({ result: isOdd(req.body.value) });
+    res.status(200).json({ result: isOdd(req.params.number) });
   }
 });
 
