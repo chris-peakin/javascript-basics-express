@@ -20,7 +20,15 @@ const addToArray2 = (element, array) => {
 };
 
 const removeNthElement = (index, array) => {
-  return array.splice(index, 1);
+  console.log(array.splice(index, 1));
+};
+
+// Note: needed to make this below function as part of JS Basics Express
+// The reason being that removeNthElement requires an index which
+// may not be specified by the user in the query.
+
+const removeFirstElement = array => {
+  return array.slice(1);
 };
 
 const numbersToStrings = numbers => {
@@ -112,6 +120,7 @@ module.exports = {
   addToArray,
   addToArray2,
   removeNthElement,
+  removeFirstElement,
   numbersToStrings,
   uppercaseWordsInArray,
   reverseWordsInArray,

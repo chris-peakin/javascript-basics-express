@@ -12,7 +12,8 @@ const {
   arrayToCSVString,
   addToArray,
   elementsStartingWithAVowel,
-  removeNthElement,
+  removeFirstElement,
+  removeNthElement2,
 } = require('./lib/arrays');
 const { negate, truthiness, isOdd, startsWith } = require('./lib/booleans');
 
@@ -114,8 +115,12 @@ app.post('/arrays/starts-with-vowel', (req, res) => {
   res.status(200).json({ result: elementsStartingWithAVowel(req.body.array) });
 });
 
-app.post('/arrays/remove-element/:index', (req, res) => {
-  res.status(200).json({ result: removeNthElement(req.query.index, req.body.array) });
+app.post('/arrays/remove-element?:index', (req, res) => {
+  if (!req.query.index) {
+    res.status(200).json({ result: removeFirstElement(req.body.array) });
+  } else {
+    res.status(200).json({ result: removeNthElement2(req.query.index, req.body.array) });
+  }
 });
 
 app.post('/booleans/negate', (req, res) => {
@@ -134,8 +139,12 @@ app.get('/booleans/is-odd/:number', (req, res) => {
   }
 });
 
-app.get('/booleans/starts-with', (req, res) => {
-  res.status(200).json({ result: startsWith(req.body.char, req.body.string) });
+app.get('/booleans/:string/starts-with/:character', (req, res) => {
+  if (req.params.character.length > 1) {
+    res.status(400).json({ error: 'Parameter "character" must be a single character.' });
+  } else {
+    res.status(200).json({ result: startsWith(req.params.character, req.params.string) });
+  }
 });
 
 module.exports = app;
