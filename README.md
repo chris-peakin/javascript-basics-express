@@ -1,38 +1,41 @@
-# JavaScript Basics in Express
+# JavaScript Basics in Express - Manchester Codes - Chris Peakin - Oct 2021 Cohort
 
-## Getting started
+## Introduction
 
-Ensure your Visual Studio Code application is up to date, and that you have the [ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) installed and enabled.
+This is an extension of the Javascript Basics repo, as part of the Backend module of the Manchester Codes Software Engineer fast-track course.
 
-Run the commands below inside your `Projects` folder.
+## Installation
 
-```bash
-git clone git@github.com:MCRcodes/javascript-basics-express.git
-cd your-project-folder-name
-npm install
-```
+After cloning the repo, run `npm install` in your terminal to install the dependencies. 
 
-## Copy over your JavaScript Basics code
+Download Postman if you haven't already; a link is provided below.
 
-:rotating_light: **Important!**
+## Testing
 
-This exercise makes use of your previous `javascript-basics` code. Copy the files from that project's `src/` folder into a new `lib/` directory in this repository's `src` directory. You should end up with the following file structure in this project:
+Run `npm test` to run the provided tests.
 
-```
-src
-├── app.js
-└── lib
-    ├── arrays.js
-    ├── booleans.js
-    ├── numbers.js
-    ├── objects.js
-    └── strings.js
-```
+## Using Postman
 
-## Running tests
+Run `npm start` in your terminal, and then open Postman.
 
-You can run tests with the `npm test` command.
+Once Node is running (the terminal should say that the Express app is running at http://localhost:3000), you can use Postman to GET or POST requests to the server.
 
-## Remember: READMEs are important!
+For example sending a GET request to `http://localhost:3000/numbers/add/12/and/8` will produce a result of 20. The other functions as shown in the `./src/lib/` files can be run too.
 
-When you're finished, be sure to rewrite this one so it's more specific to your project.
+## Links
+
+### Software to download
+
+Postman: https://www.postman.com/
+
+###  Dev Dependencies
+
+Nodemon: https://www.npmjs.com/package/nodemon
+
+Supertest: https://www.npmjs.com/package/supertest
+
+ESLint: https://eslint.org/
+
+Jest: https://jestjs.io/
+
+Prettier: https://prettier.io/docs/en/install.html
