@@ -252,7 +252,9 @@ describe('/numbers', () => {
         .send({ a: 'fish', b: 'chips' })
         .then(res => {
           expect(res.status).toEqual(400);
-          expect(res.body).toEqual({ error: 'Parameters must be valid numbers.' });
+          // Note: error message has been changed for the sake of the reusable function.
+          // It says essentially the exact same thing it did before.
+          expect(res.body).toEqual({ error: 'Parameters "a" and "b" must be valid numbers.' });
           done();
         });
     });
