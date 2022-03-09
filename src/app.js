@@ -41,14 +41,28 @@ app.get('/strings/first-characters/:string', (req, res) => {
   }
 });
 
-app.get('/numbers/add/:number/and/:number2', (req, res) => {
-  if (isNaN(req.params.number) || isNaN(req.params.number2)) {
+function checkBothAreNumbers(req, res) {
+  const num1 = Number(req.params.number);
+  const num2 = Number(req.params.number2);
+  if (Number.isNaN(num1) || Number.isNaN(num2)) {
     res.status(400).json({ error: 'Parameters must be valid numbers.' });
-  } else {
+  }
+}
+
+app.get('/numbers/add/:number/and/:number2', (req, res) => {
+  if (!checkBothAreNumbers(req, res)) {
     res
       .status(200)
       .json({ result: add(parseInt(req.params.number), parseInt(req.params.number2)) });
   }
+
+  // if (isNaN(req.params.number) || isNaN(req.params.number2)) {
+  //   res.status(400).json({ error: 'Parameters must be valid numbers.' });
+  // } else {
+  //   res
+  //     .status(200)
+  //     .json({ result: add(parseInt(req.params.number), parseInt(req.params.number2)) });
+  // }
 });
 
 app.get('/numbers/subtract/:number/from/:number2', (req, res) => {
