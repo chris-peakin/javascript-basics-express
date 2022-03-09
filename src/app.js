@@ -55,62 +55,80 @@ app.get('/numbers/add/:number/and/:number2', (req, res) => {
       .status(200)
       .json({ result: add(parseInt(req.params.number), parseInt(req.params.number2)) });
   }
-
-  // if (isNaN(req.params.number) || isNaN(req.params.number2)) {
-  //   res.status(400).json({ error: 'Parameters must be valid numbers.' });
-  // } else {
-  //   res
-  //     .status(200)
-  //     .json({ result: add(parseInt(req.params.number), parseInt(req.params.number2)) });
-  // }
 });
 
 app.get('/numbers/subtract/:number/from/:number2', (req, res) => {
-  if (isNaN(req.params.number) || isNaN(req.params.number2)) {
-    res.status(400).json({ error: 'Parameters must be valid numbers.' });
-  } else {
+  if (!checkBothAreNumbers(req, res)) {
     res
       .status(200)
       .json({ result: subtract(parseInt(req.params.number2), parseInt(req.params.number)) });
   }
 });
 
-app.post('/numbers/multiply', (req, res) => {
+function checkBothAreValidNumbers(req, res) {
+  const num1 = Number(req.body.a);
+  const num2 = Number(req.body.b);
+
   if (req.body.a == null || req.body.b == null) {
     res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
-  } else if (isNaN(req.body.a) || isNaN(req.body.b)) {
+  } else if (Number.isNaN(num1) || Number.isNaN(num2)) {
     res.status(400).json({ error: 'Parameters "a" and "b" must be valid numbers.' });
-  } else if (req.body.a && req.body.b) {
+  }
+}
+
+app.post('/numbers/multiply', (req, res) => {
+  if (!checkBothAreValidNumbers(req, res)) {
     res.status(200).json({ result: multiply(req.body.a, req.body.b) });
   }
 });
 
-app.post('/numbers/divide', (req, res) => {
+function divisionFunction(req, res) {
+  const num1 = Number(req.body.a);
+  const num2 = Number(req.body.b);
+
   if (req.body.a == null || req.body.b == null) {
     res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
-  } else if (isNaN(req.body.a) || isNaN(req.body.b)) {
+  } else if (Number.isNaN(num1) || Number.isNaN(num2)) {
     res.status(400).json({ error: 'Parameters "a" and "b" must be valid numbers.' });
   } else if (req.body.b == 0) {
     res.status(400).json({ error: 'Unable to divide by 0.' });
   } else if (req.body.a == 0) {
     res.status(200).json({ result: 0 });
-  } else if (req.body.a && req.body.b) {
+  }
+}
+
+app.post('/numbers/divide', (req, res) => {
+  if (!divisionFunction(req, res)) {
     res.status(200).json({ result: divide(req.body.a, req.body.b) });
   }
+  // if (req.body.a == null || req.body.b == null) {
+  //   res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
+  // } else if (isNaN(req.body.a) || isNaN(req.body.b)) {
+  //   res.status(400).json({ error: 'Parameters "a" and "b" must be valid numbers.' });
+  // } else if (req.body.b == 0) {
+  //   res.status(400).json({ error: 'Unable to divide by 0.' });
+  // } else if (req.body.a == 0) {
+  //   res.status(200).json({ result: 0 });
+  // } else if (req.body.a && req.body.b) {
+  //   res.status(200).json({ result: divide(req.body.a, req.body.b) });
+  // }
 });
 
 app.post('/numbers/remainder', (req, res) => {
-  if (req.body.a == null || req.body.b == null) {
-    res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
-  } else if (isNaN(req.body.a) || isNaN(req.body.b)) {
-    res.status(400).json({ error: 'Parameters must be valid numbers.' });
-  } else if (req.body.b == 0) {
-    res.status(400).json({ error: 'Unable to divide by 0.' });
-  } else if (req.body.a == 0) {
-    res.status(200).json({ result: 0 });
-  } else if (req.body.a && req.body.b) {
+  if (!divisionFunction(req, res)) {
     res.status(200).json({ result: remainder(req.body.a, req.body.b) });
   }
+  // if (req.body.a == null || req.body.b == null) {
+  //   res.status(400).json({ error: 'Parameters "a" and "b" are required.' });
+  // } else if (isNaN(req.body.a) || isNaN(req.body.b)) {
+  //   res.status(400).json({ error: 'Parameters must be valid numbers.' });
+  // } else if (req.body.b == 0) {
+  //   res.status(400).json({ error: 'Unable to divide by 0.' });
+  // } else if (req.body.a == 0) {
+  //   res.status(200).json({ result: 0 });
+  // } else if (req.body.a && req.body.b) {
+  //   res.status(200).json({ result: remainder(req.body.a, req.body.b) });
+  // }
 });
 
 app.post('/arrays/element-at-index/:index', (req, res) => {
